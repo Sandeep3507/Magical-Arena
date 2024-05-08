@@ -1,0 +1,64 @@
+import java.util.Random;
+
+class Player {
+    private int health;
+    private int strength;
+    private int attack;
+
+    public Player(int health, int strength, int attack) {
+        this.health = health;
+        this.strength = strength;
+        this.attack = attack;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void attack(Player defender) {
+        Random random = new Random();
+        int attackRoll = random.nextInt(6) + 1;
+        int defendRoll = random.nextInt(6) + 1;
+
+        int attackDamage = attack * attackRoll;
+        int defendStrength = defender.getStrength() * defendRoll;
+
+        int damage = Math.max(0, attackDamage - defendStrength);
+        defender.setHealth(defender.getHealth() - damage);
+    }
+}
+
+public class MagicalArena {
+    public static void main(String[] args) {
+        Player playerA = new Player(50, 5, 10);
+        Player playerB = new Player(100, 10, 5);
+
+        while (playerA.getHealth() > 0 && playerB.getHealth() > 0) {
+            if (playerA.getHealth() < playerB.getHealth()) {
+                playerA.attack(playerB);
+                System.out.println("Player A attacks Player B. Player B's health: " + playerB.getHealth());
+            } else {
+                playerB.attack(playerA);
+                System.out.println("Player B attacks Player A. Player A's health: " + playerA.getHealth());
+            }
+        }
+
+        if (playerA.getHealth() > 0) {
+            System.out.println("Player A wins!");
+        } else {
+            System.out.println("Player B wins!");
+        }
+    }
+}

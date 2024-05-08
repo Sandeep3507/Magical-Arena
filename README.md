@@ -1,4 +1,3 @@
-# Magical-Arena
 The code is designed to be simple and easy to understand.
 
 To run the code, simply compile and run the `Main` class.
